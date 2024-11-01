@@ -8,6 +8,3 @@ load_dotenv()
 BOT_TOKEN = environ.get("BOT_TOKEN")  # Bot toekn
 ADMINS = environ.get("ADMINS")  # adminlar ro'yxati
 IP = environ.get("IP")  # Xosting ip manzili
-
-engine = create_engine(environ.get("DATABASE_URL"))
-Base = declarative_base()

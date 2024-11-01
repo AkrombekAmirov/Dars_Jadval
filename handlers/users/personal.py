@@ -1,57 +1,35 @@
-from keyboards.inline import faculty_file_map2, file_name_map, yonalish_nomi_keyboard
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.utils.exceptions import TelegramAPIError, Throttled
-from tenacity import retry, stop_after_attempt, wait_exponential
+from keyboards.inline import faculty_file_map2, file_name_map
+from keyboards.inline import yonalish_nomi_keyboard
 from file_service import get_file_path
-from aiocache import cached
-from functools import wraps
 from aiogram import types
 from loader import dp
-import logging
 
-# Yo'nalish va guruhlar sonini ko'rsatuvchi lug'at
+# Yo'nalishlar va guruhlar soni ro'yxati
+# Yo'nalish nomi va har bir yo'nalishda nechta guruh borligini ko'rsatadigan lug'at.
 yonalishlar = {
-    "faculty0": 7,
-    "faculty1": 1,
-    "faculty2": 5,
-    "faculty3": 2,
+    "faculty0": 7,  # 1-yo'nalishda 5 ta guruh
+    "faculty1": 1,  # 2-yo'nalishda 3 ta guruh
+    "faculty2": 5,  # 3-yo'nalishda 7 ta guruh
+    "faculty3": 2,  # Shu tarzda har bir yo'nalish uchun guruhlar sonini kiriting
     "faculty4": 2,
     "faculty5": 2,
     "faculty6": 1,
     "faculty7": 2,
 }
 
-# Logging sozlamalari
-logging.basicConfig(filename='bot.log', filemode='w', level=logging.INFO,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+guruh_yunalish_map = {
+    "faculty0_1": "faculty0",
+}
 
-
-# Throttling uchun dekorator
-def throttled_callback(rate_limit=2):
-    def decorator(func):
-        @wraps(func)
-        async def wrapper(call, *args, **kwargs):
-            try:
-                await dp.throttle(rate=rate_limit)
-                return await func(call, *args, **kwargs)
-            except Throttled as e:
-                logging.warning(f"Throttling cheklovi: {e}")
-                await call.answer("So‘rov tezligi cheklangan, qayta urinib ko‘ring.")
-
-        return wrapper
-
-    return decorator
-
-
-# Yo'nalish keyboardi
+# Yo'nalish nomlarini tanlash uchun keyboard
 def yonalish_keyboard():
     keyboard = InlineKeyboardMarkup(row_width=2)
     for yonalish in yonalishlar.keys():
         keyboard.add(InlineKeyboardButton(yonalish, callback_data=f"yonalish_{yonalish}"))
     return keyboard
 
-
-# Guruh tanlash uchun keyboard
+# Guruhlarni tanlash uchun keyboard
 def guruh_keyboard(yonalish):
     keyboard = InlineKeyboardMarkup(row_width=3)
     guruh_soni = yonalishlar[yonalish]
@@ -59,57 +37,17 @@ def guruh_keyboard(yonalish):
         keyboard.add(InlineKeyboardButton(f"{i} - guruh", callback_data=f"guruh_{yonalish}_{i}"))
     return keyboard
 
-
 @dp.message_handler(commands=["start"])
 async def bot_personal(message: types.Message):
-    """Foydalanuvchini boshlash uchun yo'nalishlarni tanlashga yo'naltiradi"""
     await message.answer("Yo'nalishingizni tanlang!", reply_markup=yonalish_nomi_keyboard)
 
-
-@dp.callback_query_handler(lambda call: call.data.startswith("yonalish_"))
-@throttled_callback(rate_limit=2)
+@dp.callback_query_handler(lambda call: call.data in ["faculty0", "faculty1", "faculty2", "faculty3", "faculty4", "faculty5", "faculty6", "faculty7"])
 async def yonalish_tanlash(call: types.CallbackQuery):
-    """Yo'nalishni tanlash"""
-    try:
-        yonalish = call.data.split("_")[1]
-        await call.message.answer(
-            f"{faculty_file_map2.get(yonalish)} yo'nalishi uchun guruhni tanlang:",
-            reply_markup=guruh_keyboard(yonalish)
-        )
-    except TelegramAPIError as e:
-        logging.error(f"Telegram API xatosi: {e}")
-        await call.message.answer("Xatolik yuz berdi. Keyinroq urinib ko‘ring.")
-    except Exception as e:
-        logging.error(f"Yo'nalishni tanlashda xatolik: {e}")
-        await call.message.answer("Xatolik yuz berdi, qayta urinib ko‘ring.")
-
-
-# Fayl yo'lini keshlangan holda olish
-@cached(ttl=60)
-@retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=2, max=10))
-async def cached_get_file_path(file_name):
-    """Keshlangan holda fayl yo‘lini olish"""
-    logging.info(f"Fayl yo'lini olish: {file_name}")
-    return await get_file_path(file_name)
-
+    yonalish = call.data
+    await call.message.answer(f"{faculty_file_map2.get(yonalish)} yo'nalishi uchun guruhni tanlang:", reply_markup=guruh_keyboard(yonalish))
 
 @dp.callback_query_handler(lambda call: call.data.startswith("guruh_"))
-@throttled_callback(rate_limit=2)
 async def guruh_tanlash(call: types.CallbackQuery):
-    """Guruhni tanlash"""
-    try:
-        _, yonalish, guruh = call.data.split("_")
-        await call.message.answer(f"Siz {faculty_file_map2.get(yonalish)} yo'nalishi - {guruh}-guruh dars jadvallari!")
-
-        file_path = await cached_get_file_path(file_name_map.get(f"{yonalish}_{guruh}"))
-        await call.message.answer_document(document=open(file_path, "rb"))
-
-    except FileNotFoundError:
-        logging.error(f"Fayl topilmadi: {file_name_map.get(f'{yonalish}_{guruh}')}")
-        await call.message.answer("Kechirasiz, fayl topilmadi. Qayta urinib ko‘ring.")
-    except TelegramAPIError as e:
-        logging.error(f"Telegram API xatosi: {e}")
-        await call.message.answer("Xatolik yuz berdi. Keyinroq urinib ko‘ring.")
-    except Exception as e:
-        logging.error(f"Guruhni tanlashda xatolik: {e}")
-        await call.message.answer("Xatolik yuz berdi, qayta urinib ko‘ring.")
+    _, yonalish, guruh = call.data.split("_")
+    await call.message.answer(f"Siz {faculty_file_map2.get(yonalish)} yo'nalishi - {guruh}-guruh dars jadvallari!")
+    await call.message.answer_document(document=open(f"{await get_file_path(file_name_map.get(f'{yonalish}_{guruh}'))}", "rb"))
