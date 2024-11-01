@@ -1,13 +1,13 @@
-import logging
-from aiogram import types
+from keyboards.inline import faculty_file_map2, file_name_map, yonalish_nomi_keyboard
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.exceptions import TelegramAPIError, Throttled
-from keyboards.inline import faculty_file_map2, file_name_map, yonalish_nomi_keyboard
-from file_service import get_file_path
-from loader import dp
-from functools import wraps
-from aiocache import cached
 from tenacity import retry, stop_after_attempt, wait_exponential
+from file_service import get_file_path
+from aiocache import cached
+from functools import wraps
+from aiogram import types
+from loader import dp
+import logging
 
 # Yo'nalish va guruhlar sonini ko'rsatuvchi lug'at
 yonalishlar = {
