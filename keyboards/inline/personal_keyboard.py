@@ -26,10 +26,10 @@ yonalish_nomi_keyboard = InlineKeyboardMarkup(
         [
             InlineKeyboardButton(text="Maktabgacha talim tashkiloti defektolog/logopedi", callback_data="faculty6"),
         ],
-        [
-            InlineKeyboardButton(text="Maktabgacha ta’lim tashkiloti tarbiyachi yordamchisi",
-                                 callback_data="faculty7"),
-        ]
+        # [
+        #     InlineKeyboardButton(text="Maktabgacha ta’lim tashkiloti tarbiyachi yordamchisi",
+        #                          callback_data="faculty7"),
+        # ]
     ])
 
 faculty_group = InlineKeyboardMarkup(
