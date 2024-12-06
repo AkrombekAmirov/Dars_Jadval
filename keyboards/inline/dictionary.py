@@ -6,7 +6,7 @@ faculty_file_map2 = {
     "faculty4": 'Maktabgacha talim tashkiloti musiqa rahbari',
     "faculty5": 'Maktabgacha ta`lim tashkiloti tashkilot oshpazi',
     "faculty6": 'Maktabgacha talim tashkiloti defektolog/logopedi',
-    "faculty7": 'Maktabgacha ta’lim tashkiloti tarbiyachi yordamchisi',
+    "faculty7": 'Oilaviy nodavlat',
 }
 
 file_name_map = {
@@ -16,8 +16,8 @@ file_name_map = {
     "faculty0_4": "Tarbiyachi_4-guruh.pdf",
     "faculty0_5": "Tarbiyachi_5-guruh.pdf",
     "faculty0_6": "Tarbiyachi_6-guruh.pdf",
-    "faculty0_7": "Tarbiyachi_7-guruh.pdf",
-    "faculty1_1": "Psixolog_1-guruh.pdf",
+    # "faculty0_7": "Tarbiyachi_7-guruh.pdf",
+    # "faculty1_1": "Psixolog_1-guruh.pdf",
     "faculty2_1": "Direktor _1-guruh.pdf",
     "faculty2_2": "Direktor _2-guruh.pdf",
     "faculty2_3": "Direktor _3-guruh.pdf",
@@ -27,8 +27,9 @@ file_name_map = {
     "faculty3_2": "Tarbiyachi_Metodist _2-guruh.pdf",
     "faculty4_1": "Musiqa_1-guruh.pdf",
     "faculty4_2": "Musiqa_2-guruh.pdf",
+    "faculty4_3": "Musiqa_3-guruh.pdf",
     "faculty5_1": "Oshpaz_1-guruh.pdf",
     "faculty5_2": "Oshpaz_2-guruh.pdf",
     "faculty6_1": "Defektolog_1-guruh.pdf",
-    "faculty7_1": "Tarbiyachi_1-guruh.pdf",
+    "faculty7_1": "Oilaviy_nodavlat.pdf",
 }
