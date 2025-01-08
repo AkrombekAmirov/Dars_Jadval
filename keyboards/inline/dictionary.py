@@ -6,7 +6,7 @@ faculty_file_map2 = {
     "faculty4": 'Maktabgacha talim tashkiloti musiqa rahbari',
     "faculty5": 'Maktabgacha ta`lim tashkiloti tashkilot oshpazi',
     "faculty6": 'Maktabgacha talim tashkiloti defektolog/logopedi',
-    "faculty7": 'Maktabgacha talim tashkiloti direktori o`rinbosari',
+    "faculty7": "Maktabgacha talim tashkiloti direktori o'rinbosari",
 }
 
 file_name_map = {
@@ -19,10 +19,10 @@ file_name_map = {
     # "faculty0_7": "Tarbiyachi_7-guruh.pdf",
     "faculty1_1": "Psixolog_1-guruh.pdf",
     "faculty1_2": "Psixolog_2-guruh.pdf",
-    "faculty2_1": "Direktor_1-guruh.pdf",
-    "faculty2_2": "Direktor_2-guruh.pdf",
-    "faculty2_3": "Direktor_3-guruh.pdf",
-    "faculty2_4": "Direktor_4-guruh.pdf",
+    "faculty2_1": "Direktor _1-guruh.pdf",
+    "faculty2_2": "Direktor _2-guruh.pdf",
+    "faculty2_3": "Direktor _3-guruh.pdf",
+    "faculty2_4": "Direktor _4-guruh.pdf",
     # "faculty2_5": "Direktor_5-guruh.pdf",
     # "faculty3_1": "Tarbiyachi_Metodist _1-guruh.pdf",
     # "faculty3_2": "Tarbiyachi_Metodist _2-guruh.pdf",
@@ -34,7 +34,7 @@ file_name_map = {
     "faculty6_1": "Defektolog_1-guruh.pdf",
     "faculty6_2": "Logoped_1-guruh.pdf",
     "faculty6_3": "Logoped_2-guruh.pdf",
-    "faculty7_1": "Direktor_O_1-guruh.pdf",
-    "faculty7_2": "Direktor_O_2-guruh.pdf",
-    "faculty7_3": "Direktor_O_3-guruh.pdf",
+    "faculty7_1": "DirektorO _1-guruh.pdf",
+    "faculty7_2": "DirektorO_2-guruh.pdf",
+    "faculty7_3": "DirektorO _3-guruh.pdf",
 }
