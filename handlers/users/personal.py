@@ -8,14 +8,14 @@ from loader import dp
 # Yo'nalishlar va guruhlar soni ro'yxati
 # Yo'nalish nomi va har bir yo'nalishda nechta guruh borligini ko'rsatadigan lug'at.
 yonalishlar = {
-    "faculty0": 6,  # 1-yo'nalishda 5 ta guruh
-    "faculty1": 0,  # 2-yo'nalishda 3 ta guruh
-    "faculty2": 5,  # 3-yo'nalishda 7 ta guruh
-    "faculty3": 2,  # Shu tarzda har bir yo'nalish uchun guruhlar sonini kiriting
-    "faculty4": 3,
-    "faculty5": 2,
-    "faculty6": 1,
-    "faculty7": 1,
+    "faculty0": 5,  # 1-yo'nalishda 5 ta guruh
+    "faculty1": 2,  # 2-yo'nalishda 3 ta guruh
+    "faculty2": 4,  # 3-yo'nalishda 7 ta guruh
+    "faculty3": 0,  # Shu tarzda har bir yo'nalish uchun guruhlar sonini kiriting
+    "faculty4": 0,
+    "faculty5": 1,
+    "faculty6": 3,
+    "faculty7": 3,
 }
 
 guruh_yunalish_map = {
